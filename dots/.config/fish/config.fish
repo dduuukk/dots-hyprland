@@ -3,15 +3,24 @@ if status is-interactive
     # No greeting
     set fish_greeting
 
+    # Init ssh agent
+    if status is-interactive
+        if not set -q SSH_AUTH_SOCK
+            eval (ssh-agent -c) >/dev/null
+            set -Ux SSH_AUTH_SOCK $SSH_AUTH_SOCK
+            set -Ux SSH_AGENT_PID $SSH_AGENT_PID
+        end
+    end
+
     # Use starship
     function starship_transient_prompt_func
         starship module character
     end
-    if test "$TERM" != "linux"
+    if test "$TERM" != linux
         starship init fish | source
         enable_transience
     end
-    
+
     # Colors
     if test -f ~/.local/state/quickshell/user/generated/terminal/sequences.txt
         cat ~/.local/state/quickshell/user/generated/terminal/sequences.txt
@@ -24,10 +33,13 @@ if status is-interactive
     alias claer "printf '\033[2J\033[3J\033[1;1H'"
     alias pamcan pacman
     alias q 'qs -c ii'
-    if test "$TERM" != "linux"
+
+    if test "$TERM" != linux
         alias ls 'eza --icons'
     end
-    if test "$TERM" = "xterm-kitty"
+
+    if test "$TERM" = xterm-kitty
         alias ssh 'kitten ssh'
     end
+
 end
