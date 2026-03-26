@@ -32,3 +32,7 @@ output_path = '~/.local/state/quickshell/user/generated/color.txt'
 [templates.wallpaper]
 input_path = '~/.config/matugen/templates/wallpaper.txt'
 output_path = '~/.local/state/quickshell/user/generated/wallpaper/path.txt'
+
+[templates.nvim]
+input_path = '~/.config/matugen/templates/nvim/colors.lua'
+output_path = '~/.config/nvim/lua/matugen/colors.lua'
