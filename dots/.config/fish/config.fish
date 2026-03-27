@@ -3,9 +3,8 @@ if status is-interactive
     # No greeting
     set fish_greeting
 
-    # Init ssh agent
     if status is-interactive
-        if not set -q SSH_AUTH_SOCK
+        if not set -q SSH_AUTH_SOCK; or not test -S "$SSH_AUTH_SOCK"; or not kill -0 $SSH_AGENT_PID 2>/dev/null
             eval (ssh-agent -c) >/dev/null
             set -Ux SSH_AUTH_SOCK $SSH_AUTH_SOCK
             set -Ux SSH_AGENT_PID $SSH_AGENT_PID
